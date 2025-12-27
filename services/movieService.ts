@@ -1,5 +1,6 @@
 
 import { Movie } from '../types';
+import { rawMoviesData } from '../data/moviesData'; // Import from the new TS file
 
 /**
  * Simulates fetching movie data from an API.
@@ -7,20 +8,10 @@ import { Movie } from '../types';
  */
 export const fetchMovies = async (): Promise<Movie[]> => {
   // Simulate network delay
-  return new Promise((resolve, reject) => {
-    setTimeout(async () => {
-      try {
-        // Use fetch to load the JSON file, assuming it's accessible at the root /data/movies.json
-        const response = await fetch('/data/movies.json');
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const moviesData = await response.json();
-        resolve(moviesData as Movie[]);
-      } catch (error) {
-        console.error("Error fetching movies.json:", error);
-        reject(new Error("Failed to load movie data."));
-      }
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      // Resolve directly with the imported data
+      resolve(rawMoviesData);
     }, 500);
   });
 };
